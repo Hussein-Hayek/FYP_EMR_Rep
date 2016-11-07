@@ -38,32 +38,36 @@ public class ExcelReaders {
         for(int r=2;r<rows;r++){
             row=sheet.getRow(r);
             if(row!=null){
-                row.getCell(0).setCellType(Cell.CELL_TYPE_NUMERIC);
-                id = (int) row.getCell(0).getNumericCellValue();
-                if(id!=0){
-                    label = row.getCell(1).getStringCellValue();
-                    type = row.getCell(2).getStringCellValue();
-                    color = row.getCell(3).getStringCellValue();
-                    available = row.getCell(4).getStringCellValue();
+                if(row.getCell(0)!=null){
+                    row.getCell(0).setCellType(Cell.CELL_TYPE_NUMERIC);
+                    id = (int) row.getCell(0).getNumericCellValue();
+                    if(id!=0){
+                        label = row.getCell(1).getStringCellValue();
+                        type = row.getCell(2).getStringCellValue();
+                        color = row.getCell(3).getStringCellValue();
+                        available = row.getCell(4).getStringCellValue();
                 
-                    n=new Node();
-                    n.setID(id);
-                    n.setLabel(label);
-                    n.setType(type);
-                    n.setAvailable(available);
-                    n.setColor(color);
+                        n=new Node();
+                        n.setID(id);
+                        n.setLabel(label);
+                        n.setType(type);
+                        n.setAvailable(available);
+                        n.setColor(color);
                 
-                    DA.addNode(n);
+                        DA.addNode(n);
+                    }
                 }
-                row.getCell(6).setCellType(Cell.CELL_TYPE_NUMERIC);
-                row.getCell(7).setCellType(Cell.CELL_TYPE_NUMERIC);
-                id1 = (int) row.getCell(6).getNumericCellValue();
-                id2 = (int) row.getCell(7).getNumericCellValue();
-                label_e = row.getCell(8).getStringCellValue();
+                if(row.getCell(6)!=null){
+                    row.getCell(6).setCellType(Cell.CELL_TYPE_NUMERIC);
+                    row.getCell(7).setCellType(Cell.CELL_TYPE_NUMERIC);
+                    id1 = (int) row.getCell(6).getNumericCellValue();
+                    id2 = (int) row.getCell(7).getNumericCellValue();
+                    label_e = row.getCell(8).getStringCellValue();
                 
-                e = new Edge(id1,id2);
-                e.setLabel(label_e);
-                edges.add(e);
+                    e = new Edge(id1,id2);
+                    e.setLabel(label_e);
+                    edges.add(e);
+                }
             }
         }
         for(int i=0;i<edges.size();i++)
@@ -72,9 +76,15 @@ public class ExcelReaders {
         return DA;
     }
     
-    public static LinkedList<Diagnostic_Algorithm> ReadAllGraphs(){
+    public static LinkedList<Diagnostic_Algorithm> ReadAllGraphs() throws IOException{
         LinkedList<Diagnostic_Algorithm> DAs = new LinkedList<Diagnostic_Algorithm>();
-        
+        String Path = "src\\DA_Excel\\";
+        String fullPath;
+        for(int i=1;i<=59;i++){
+            fullPath = Path + i + ".xlsx";
+            Diagnostic_Algorithm DA = ReadFullGraph(fullPath);
+            DAs.add(DA);
+        }
         return DAs;
     }
 }
