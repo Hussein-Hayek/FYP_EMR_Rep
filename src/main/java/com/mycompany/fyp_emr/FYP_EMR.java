@@ -6,8 +6,9 @@
 
 package com.mycompany.fyp_emr;
 
-import static com.mycompany.fyp_emr.ExcelReaders.ReadFullGraph;
+import static com.mycompany.fyp_emr.ExcelReaders.ReadAllGraphs;
 import java.io.IOException;
+import java.util.LinkedList;
 
 /**
  *
@@ -15,8 +16,9 @@ import java.io.IOException;
  */
 public class FYP_EMR {
     public static void main(String args[]) throws IOException{
-        Diagnostic_Algorithm A1;
-        A1 = ReadFullGraph("C:\\Users\\Acer\\Desktop\\Symptoms to Diagnosis\\ch 5\\ch 5-1 headache in hiv positive patients\\ch 5-1 headache with hiv postive patients.xlsx");
+        LinkedList<Diagnostic_Algorithm> A1;
+        //A1 = ReadFullGraph("C:\\Users\\Acer\\Desktop\\Symptoms to Diagnosis\\ch 5\\ch 5-1 headache in hiv positive patients\\ch 5-1 headache with hiv postive patients.xlsx");
+        A1 = ReadAllGraphs();
         System.out.println();
     }
 }
